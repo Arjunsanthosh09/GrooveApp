@@ -37,7 +37,7 @@ public class dbexample {
             p2.executeUpdate();
             System.out.println("Deleted succesfully");
             
-            String update="update details set name=Gowtham thulasi where id =2";
+            String update="update details set name='Gowtham thulasi' where id =2";
             PreparedStatement p3=con.prepareStatement(update);
             p3.executeUpdate();
             System.out.println("Update succesfully");
