@@ -1,4 +1,14 @@
 
+create database student;
+use student;
+create table details(
+    id int primary key,
+    name varchar(20)
+);
+insert into details values(1,'Arjun');
+insert into details values(2,'Gowtham');
+
+
 import java.sql.*;
 public class dbexample {
     public static void main(String []arg){
