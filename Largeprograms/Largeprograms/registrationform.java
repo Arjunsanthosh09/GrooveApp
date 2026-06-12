@@ -1,5 +1,15 @@
-package com.mycompany.practice;
+create database student;
+use student;
+create table registration(
+    regno varchar(20) primary key,
+    name varchar(50),
+    year varchar(20),
+    branch varchar(20),
+    address varchar(100)
+);
+
 import java.awt.*;
+import java.sql.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 public class registrationform extends Frame implements ActionListener{
@@ -85,12 +95,36 @@ public class registrationform extends Frame implements ActionListener{
         });
         setVisible(true);  
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        JOptionPane.showMessageDialog(null,"Form submitted");
-        
+        @Override
+public void actionPerformed(ActionEvent e) {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/student",
+                "root",
+                "");
+        String sql = "insert into registration values(?,?,?,?,?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, t2.getText());           
+        ps.setString(2, t1.getText());          
+        ps.setString(3, year.getSelectedItem()); 
+        ps.setString(4, branch.getSelectedItem());
+        ps.setString(5, address.getText());    
+        int rows = ps.executeUpdate();
+        if (rows > 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Form submitted and inserted into database successfully!"
+            );
+        }
+        con.close();
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Error: " + ex.getMessage()
+        );
     }
+}
     public static void main(String []arg){
         registrationform r=new registrationform();
     }
