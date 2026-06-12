@@ -1,8 +1,4 @@
 
-package com.mycompany.practice;
-
-
-
 import javax.swing.*;
 import java.awt.event.*;
 public class guicalculator extends JFrame implements ActionListener{
@@ -36,14 +32,60 @@ public class guicalculator extends JFrame implements ActionListener{
     div=new JButton("Division");
     mult=new JButton("Multiplication");
     
-    add.setBounds(50, 300, 150, 30);
-    sub.setBounds(100, 300, 150, 30);
+    add.setBounds(50, 300, 100, 30);
+    sub.setBounds(160, 300, 100, 30);
+    div.setBounds(280, 300, 100, 30);
+    mult.setBounds(390, 300, 150, 30);
+    
+    add(add);
+    add(sub);
+    add(div);
+    add(mult);
+    
+    l3=new JLabel("Result: ");
+    l3.setBounds(50, 450, 150, 30);
+    add(l3);
+    result=new JTextField();
+    result.setBounds(150, 450, 200, 30);
+    add(result);
+    
+    add.addActionListener(this);
+    sub.addActionListener(this);
+    div.addActionListener(this);
+    mult.addActionListener(this);
     
     setVisible(true);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            double num1=Double.parseDouble(t1.getText());
+            double num2=Double.parseDouble(t2.getText());
+            double res;
+            if(e.getSource()==add){
+                res=num1+num2;
+                result.setText(String.valueOf(res));
+            }else if(e.getSource()==sub){
+                res=num1-num2;
+                result.setText(String.valueOf(res));
+            }else if(e.getSource()==div){
+                try{
+                    res=num1/num2;
+                    result.setText(String.valueOf(res));
+                }catch(ArithmeticException a){
+                    System.out.println(e);
+                    System.out.println("Cannot divided by zero...");
+                }
+                
+            }
+            else if(e.getSource()==mult){
+                res=num1*num2;
+                result.setText(String.valueOf(res));
+            }
+    
+        }catch(NumberFormatException n){
+            System.out.println(n);
+        }
     }
     public static void main(String []arg){
         guicalculator g1=new guicalculator();
